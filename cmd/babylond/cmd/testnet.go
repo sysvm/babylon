@@ -203,11 +203,12 @@ func InitTestnet(
 
 		nodeConfig.Moniker = nodeDirName
 
-		ip, err := getIP(i, startingIPAddress)
-		if err != nil {
-			_ = os.RemoveAll(outputDir)
-			return err
-		}
+		// ip, err := getIP(i, startingIPAddress)
+		// if err != nil {
+		// 	_ = os.RemoveAll(outputDir)
+		// 	return err
+		// }
+		ip := mockTwoIPs(i)
 
 		// generate account key
 		kb, err := keyring.New(sdk.KeyringServiceName(), keyringBackend, nodeDir, inBuf, clientCtx.Codec)
@@ -491,6 +492,14 @@ func collectGenFiles(
 	}
 
 	return nil
+}
+
+func mockTwoIPs(i int) string {
+	if i == 0 {
+		return "13.236.118.79"
+	} else {
+		return "54.252.169.88"
+	}
 }
 
 func getIP(i int, startingIPAddr string) (ip string, err error) {
